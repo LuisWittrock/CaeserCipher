@@ -1,36 +1,37 @@
 import java.util.*;
-import java.lang.*;
-class Caeser {
-    public static void main(String[] args)
+class Encrypt
+{
+    public void getInput()
     {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Gib ein wort ein: ");
+        System.out.println("welcher text soll entschluesselt werden: ");
         String text = scanner.next();
-        System.out.println("\n Nun einen Schluessel: ");
+        System.out.print("\n welcher schluessel: ");
         int schluessel = scanner.nextInt();
-        scanner.close();
         verschluesseln(schluessel, text);
+        scanner.close();
     }
-    public static String rotateAlphabet(int schluessel)
+
+    public String rotateAlphabet(int schluessel)
     {
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         StringBuilder tmp = new StringBuilder();
-        for(int i = alphabet.length()-1; i>alphabet.length()-schluessel-1; i--)
+        for(int i = 0; i<schluessel; i++)
         {
             tmp.append(alphabet.charAt(i));
         }
         StringBuilder newAlphabet = new StringBuilder();
-        newAlphabet.append(tmp);
-        int i = 0;
-        while(newAlphabet.length() <= 26)
+        int i = schluessel;
+        while(newAlphabet.length() < 26-schluessel)
         {
             newAlphabet.append(alphabet.charAt(i));
             i++;
         }
+        newAlphabet.append(tmp);
         return newAlphabet.toString();
 
     }
-    public static void verschluesseln(int schluessel, String text)
+    public void verschluesseln(int schluessel, String text)
     {
         String alphabet = rotateAlphabet(schluessel);
         StringBuilder newText = new StringBuilder();
