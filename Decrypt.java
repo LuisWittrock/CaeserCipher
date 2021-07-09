@@ -1,13 +1,16 @@
 import java.util.*;
+
 class Decrypt
 {
     public void getInput()
     {
+        Encrypt encrypt = new Encrypt();
         Scanner scanner = new Scanner(System.in);
         System.out.println("welcher text soll entschluesselt werden: ");
         String text = scanner.next();
         scanner.close();
-        charFrequency(text);
+        int schluessel = combinations(text);
+        System.out.println(encrypt.verschluesseln(schluessel, text));
     }
     public String rotateAlphabet(int schluessel)
     {
@@ -32,7 +35,7 @@ class Decrypt
         StringBuilder charSequence = new StringBuilder();
         int[] frequency = new int[26];
         for(int i = 0; i<26; i++) frequency[i] = 0;
-
+        
         for(int i = 0; i<text.length(); i++)
         {
             frequency[(int)text.charAt(i)-'a']++;
@@ -56,5 +59,43 @@ class Decrypt
         }
         System.out.println(charSequence);
         return charSequence.toString();
+    }
+    public int combinations(String text)
+    {
+        String deutsch = "enisratdhulcgmobwfkzpvjyxq";
+        Encrypt encrypt = new Encrypt();
+        String allCombinations[] = new String[27];
+        int match[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        for(int i = 1; i<=26; i++)
+        {
+            allCombinations[i] = encrypt.verschluesseln(i, text);
+            System.out.println(allCombinations[i]);
+            allCombinations[i] = charFrequency(allCombinations[i]);
+        }
+        System.out.println("got here1");
+        for(int i = 1; i<=26; i++)
+        {
+            System.out.println(i);
+            for(int j = 0; j<26; j++)
+            {
+                System.out.println(j);
+                if(allCombinations[i].charAt(j) == deutsch.charAt(j))
+                {
+                    match[i]++;
+                }
+            }
+        }
+        int max = 0;
+        int index = 0;
+        for(int i = 0; i<26; i++)
+        {
+            if(match[i] > max)
+            {
+                index = i+1;
+                max = match[i];
+            }
+        }
+        return index;
+
     }
 }

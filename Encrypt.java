@@ -8,8 +8,9 @@ class Encrypt
         String text = scanner.next();
         System.out.print("\n welcher schluessel: ");
         int schluessel = scanner.nextInt();
-        verschluesseln(schluessel, text);
+        String verschluesselt = verschluesseln(schluessel, text);
         scanner.close();
+        System.out.println(verschluesselt);
     }
 
     public String rotateAlphabet(int schluessel)
@@ -31,7 +32,7 @@ class Encrypt
         return newAlphabet.toString();
 
     }
-    public void verschluesseln(int schluessel, String text)
+    public String verschluesseln(int schluessel, String text)
     {
         String alphabet = rotateAlphabet(schluessel);
         StringBuilder newText = new StringBuilder();
@@ -39,6 +40,6 @@ class Encrypt
         {
             newText.append(alphabet.charAt((int)text.charAt(i)-'a'));
         }
-        System.out.println(newText);
+        return newText.toString();
     }
 }
