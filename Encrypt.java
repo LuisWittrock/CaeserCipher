@@ -4,7 +4,7 @@ class Encrypt
     public void getInput()
     {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("welcher text soll entschluesselt werden: ");
+        System.out.println("welcher text soll verschluesselt werden: ");
         String text = scanner.next();
         System.out.print("\n welcher schluessel: ");
         int schluessel = scanner.nextInt();

@@ -1,3 +1,8 @@
+// An zukunfts Luis:
+// Lass dir erstmal alle moeglichen kombinationen ausgeben um zu sehen ob es funktioniert.
+// Wenn dass funktioniert zaehle die buchstaben und bestimme fuer welche kombination die haufigkeit am besten mit der der deutschen sprache uebereinstimmt.
+
+
 import java.util.*;
 
 class Decrypt
@@ -9,9 +14,12 @@ class Decrypt
         System.out.println("welcher text soll entschluesselt werden: ");
         String text = scanner.next();
         scanner.close();
-        int schluessel = combinations(text);
-        System.out.println(encrypt.verschluesseln(schluessel, text));
+        int schluessel = combinations(text)-1;
+        System.out.println("################################################################################################################################### \n");
+        System.out.println("Entschluesselung: " + encrypt.verschluesseln(schluessel, text) + "\n");
+        System.out.println("################################################################################################################################### \n");
     }
+
     public String rotateAlphabet(int schluessel)
     {
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -30,6 +38,7 @@ class Decrypt
         newAlphabet.append(tmp);
         return newAlphabet.toString();
     }
+
     public String charFrequency(String text) //used to determine the frequency of each char.
     {
         StringBuilder charSequence = new StringBuilder();
@@ -57,8 +66,9 @@ class Decrypt
             int a = (int)'a'+currIndex;
             charSequence.append((char)a);
         }
-        System.out.println(charSequence);
+        System.out.println("Sequence: " + charSequence);
         return charSequence.toString();
+
     }
     public int combinations(String text)
     {
@@ -66,23 +76,23 @@ class Decrypt
         Encrypt encrypt = new Encrypt();
         String allCombinations[] = new String[27];
         int match[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-        for(int i = 1; i<=26; i++)
+        for(int i = 0; i<=26; i++)
         {
             allCombinations[i] = encrypt.verschluesseln(i, text);
-            System.out.println(allCombinations[i]);
+            System.out.println("schluessel: " + i);
+            System.out.println("Entschluesselt: " + allCombinations[i]);
             allCombinations[i] = charFrequency(allCombinations[i]);
         }
-        System.out.println("got here1");
-        for(int i = 1; i<=26; i++)
+        for(int i = 0; i<=26; i++)
         {
-            System.out.println(i);
-            for(int j = 0; j<26; j++)
+            int j = 0;
+            for(char ch: allCombinations[i].toCharArray())
             {
-                System.out.println(j);
-                if(allCombinations[i].charAt(j) == deutsch.charAt(j))
+                if(ch == deutsch.charAt(j))
                 {
                     match[i]++;
                 }
+                j++;
             }
         }
         int max = 0;
@@ -95,7 +105,7 @@ class Decrypt
                 max = match[i];
             }
         }
+        System.out.println(index);
         return index;
-
     }
 }
